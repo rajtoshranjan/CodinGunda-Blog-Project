@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+  {% block body %}
+  {% load static %}
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9">
+            <div class="section-title">
+              <span class="caption d-block small">Categories</span>
+              <h2>{{title}}</h2>
+            </div>
+           {% for post in posts %}            
+            <div class="post-entry-2 d-flex">
+              <div class="thumbnail order-md-2" style="background-image: url({{post.thumbnail.url}})"></div>
+              <div class="contents order-md-1 pl-0">
+                <span class="caption mb-4 d-block">{{post.auther.user.username}}</span>
+                <h2><a href="blog-single.html">{{post.title}}</a></h2>
+                <p class="mb-3">{{post.overview}}</p>
+                <div class="post-meta">
+                  <span class="d-block">
+                    {% for cat in post.categories.all %}
+                      <a href="#">{{cat.title}}</a>, 
+                    {% endfor %}
+                  </span>
+                  <span class="date-read">{{post.time_upload}} <span class="mx-1">&bullet;</span> {{post.read}} reads <span class="icon-star2"></span></span>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="col-lg-3">
+            <div class="section-title">
+              <h2>Popular Posts</h2>
+            </div>
+
+             {% for post in pop_post %}
+            <div class="trend-entry d-flex">
+              <div class="number align-self-start">0{{forloop.counter}}</div>
+              <div class="trend-contents">
+                <h2><a href="blog-single.html">{{post.title}}</a></h2>
+                <div class="post-meta">
+                  <span class="d-block">
+
+                    {% for cat in post.categories.all %}
+                      <a href="#">{{cat.title}}</a>, 
+                    {% endfor %}
+                  </span>
+                  <span class="date-read">{{post.time_uplaod|timesince}} ago<span class="mx-1">&bullet;</span> {{post.read}} reads<span class="icon-star2"></span></span>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+           
+            <p>
+              <a href="{% url 'view_all' 'popular' %}" class="more">See All Popular <span class="icon-keyboard_arrow_right"></span></a>
+            </p>
+          </div>
+        </div>
+
+       
+      </div>
+    </div>
+
+    <div class="site-section subscribe bg-light">
+      <div class="container">
+        <form action="#" class="row align-items-center">
+          <div class="col-md-5 mr-auto">
+            <h2>Newsletter Subcribe</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis aspernatur ut at quae omnis pariatur obcaecati possimus nisi ea iste!</p>
+          </div>
+          <div class="col-md-6 ml-auto">
+            <div class="d-flex">
+              <input type="email" class="form-control" placeholder="Enter your email">
+              <button type="submit" class="btn btn-secondary" ><span class="icon-paper-plane"></span></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+  {% endblock body %}
